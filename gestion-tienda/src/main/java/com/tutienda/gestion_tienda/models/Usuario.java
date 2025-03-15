@@ -1,7 +1,7 @@
 package com.tutienda.gestion_tienda.models;
 
 import jakarta.persistence.*;
-
+//Creado por LuisRamirez
 @Entity
 @Table(name = "usuarios")
 public class Usuario {
@@ -47,7 +47,7 @@ public class Usuario {
     }
 
     public void setIdUsuario(Long idUsuario) {
-        this.idUsuario = idUsuario;
+            this.idUsuario = idUsuario;
     }
 
     public String getContraseña() {
