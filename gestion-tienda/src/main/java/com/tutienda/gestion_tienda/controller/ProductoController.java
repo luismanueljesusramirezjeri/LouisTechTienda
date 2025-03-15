@@ -7,7 +7,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/productos")
@@ -18,21 +17,20 @@ public class ProductoController {
 
     // Obtener todos los productos
     @GetMapping
-    public List<Producto> obtenerProductos() {
-        return productoService.obtenerTodosLosProductos();
+    public ResponseEntity<List<Producto>> obtenerProductos() {
+        return ResponseEntity.ok(productoService.obtenerTodosLosProductos());
     }
 
     // Obtener un producto por ID
     @GetMapping("/{id}")
     public ResponseEntity<Producto> obtenerProductoPorId(@PathVariable Long id) {
-        Optional<Producto> producto = productoService.obtenerProductoPorId(id);
-        return producto.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
+        return ResponseEntity.ok(productoService.obtenerProductoPorId(id));
     }
 
     // Crear un nuevo producto
     @PostMapping
-    public Producto crearProducto(@RequestBody Producto producto) {
-        return productoService.guardarProducto(producto);
+    public ResponseEntity<Producto> crearProducto(@RequestBody Producto producto) {
+        return ResponseEntity.ok(productoService.guardarProducto(producto));
     }
 
     // Eliminar un producto

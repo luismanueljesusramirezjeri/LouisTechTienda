@@ -1,5 +1,6 @@
 package com.tutienda.gestion_tienda.service;
 
+import com.tutienda.gestion_tienda.exception.ResourceNotFoundException;
 import com.tutienda.gestion_tienda.models.Usuario;
 import com.tutienda.gestion_tienda.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +16,6 @@ public class UsuarioService {
     private UsuarioRepository usuarioRepository;
 
     // Obtener todos los usuarios
-    // Obtener todos los usuarios
     public List<Usuario> obtenerTodos() {
         List<Usuario> usuarios = usuarioRepository.findAll();
         System.out.println("Usuarios obtenidos: " + usuarios.size()); // 🔹 DEBUG
@@ -26,8 +26,9 @@ public class UsuarioService {
     }
 
     // Obtener un usuario por ID
-    public Optional<Usuario> obtenerPorId(Long id) {
-        return usuarioRepository.findById(id);
+    public Usuario obtenerPorId(Long id) {
+        return usuarioRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Usuario con ID " + id + " no encontrado"));
     }
 
     // Guardar un nuevo usuario
@@ -35,8 +36,11 @@ public class UsuarioService {
         return usuarioRepository.save(usuario);
     }
 
-    // Eliminar usuario
+    // Eliminar un usuario con validación
     public void eliminarUsuario(Long id) {
+        if (!usuarioRepository.existsById(id)) {
+            throw new ResourceNotFoundException("Usuario con ID " + id + " no encontrado");
+        }
         usuarioRepository.deleteById(id);
     }
 }

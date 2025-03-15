@@ -1,12 +1,12 @@
 package com.tutienda.gestion_tienda.service;
 
+import com.tutienda.gestion_tienda.exception.ResourceNotFoundException;
 import com.tutienda.gestion_tienda.models.Producto;
 import com.tutienda.gestion_tienda.repository.ProductoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class ProductoService {
@@ -20,8 +20,9 @@ public class ProductoService {
     }
 
     // Obtener un producto por ID
-    public Optional<Producto> obtenerProductoPorId(Long id) {
-        return productoRepository.findById(id);
+    public Producto obtenerProductoPorId(Long id) {
+        return productoRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Producto con ID " + id + " no encontrado"));
     }
 
     // Guardar un nuevo producto
@@ -31,6 +32,9 @@ public class ProductoService {
 
     // Eliminar un producto
     public void eliminarProducto(Long id) {
+        if (!productoRepository.existsById(id)) {
+            throw new ResourceNotFoundException("Producto con ID " + id + " no encontrado");
+        }
         productoRepository.deleteById(id);
     }
 }

@@ -7,7 +7,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/clientes")
@@ -18,26 +17,30 @@ public class ClienteController {
 
     // Obtener todos los clientes
     @GetMapping
-    public List<Cliente> obtenerClientes() {
-        return clienteService.obtenerTodosLosClientes();
+    public ResponseEntity<List<Cliente>> obtenerClientes() {
+        List<Cliente> clientes = clienteService.obtenerTodosLosClientes();
+        System.out.println("Lista de clientes obtenida"); // 🔹 DEBUG
+        return ResponseEntity.ok(clientes);
     }
 
-    // Obtener un cliente por ID
+    // Obtener cliente por ID
     @GetMapping("/{id}")
     public ResponseEntity<Cliente> obtenerClientePorId(@PathVariable Long id) {
-        Optional<Cliente> cliente = clienteService.obtenerClientePorId(id);
-        return cliente.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
+        System.out.println("Buscando cliente con ID: " + id); // 🔹 DEBUG
+        return ResponseEntity.ok(clienteService.obtenerClientePorId(id));
     }
 
     // Crear un nuevo cliente
     @PostMapping
-    public Cliente crearCliente(@RequestBody Cliente cliente) {
-        return clienteService.guardarCliente(cliente);
+    public ResponseEntity<Cliente> crearCliente(@RequestBody Cliente cliente) {
+        System.out.println("Creando cliente: " + cliente.getNombre()); // 🔹 DEBUG
+        return ResponseEntity.ok(clienteService.guardarCliente(cliente));
     }
 
-    // Eliminar un cliente
+    // Eliminar cliente
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> eliminarCliente(@PathVariable Long id) {
+        System.out.println("Eliminando cliente con ID: " + id); // 🔹 DEBUG
         clienteService.eliminarCliente(id);
         return ResponseEntity.noContent().build();
     }

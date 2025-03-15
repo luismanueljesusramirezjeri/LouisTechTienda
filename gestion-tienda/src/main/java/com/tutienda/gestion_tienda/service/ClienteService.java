@@ -1,12 +1,12 @@
 package com.tutienda.gestion_tienda.service;
 
+import com.tutienda.gestion_tienda.exception.ResourceNotFoundException;
 import com.tutienda.gestion_tienda.models.Cliente;
 import com.tutienda.gestion_tienda.repository.ClienteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class ClienteService {
@@ -16,12 +16,15 @@ public class ClienteService {
 
     // Obtener todos los clientes
     public List<Cliente> obtenerTodosLosClientes() {
-        return clienteRepository.findAll();
+        List<Cliente> clientes = clienteRepository.findAll();
+        System.out.println("Clientes obtenidos: " + clientes.size()); // 🔹 DEBUG
+        return clientes;
     }
 
     // Obtener un cliente por ID
-    public Optional<Cliente> obtenerClientePorId(Long id) {
-        return clienteRepository.findById(id);
+    public Cliente obtenerClientePorId(Long id) {
+        return clienteRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Cliente con ID " + id + " no encontrado"));
     }
 
     // Guardar un nuevo cliente
@@ -29,8 +32,11 @@ public class ClienteService {
         return clienteRepository.save(cliente);
     }
 
-    // Eliminar un cliente
+    // Eliminar un cliente con validación
     public void eliminarCliente(Long id) {
+        if (!clienteRepository.existsById(id)) {
+            throw new ResourceNotFoundException("Cliente con ID " + id + " no encontrado");
+        }
         clienteRepository.deleteById(id);
     }
 }
