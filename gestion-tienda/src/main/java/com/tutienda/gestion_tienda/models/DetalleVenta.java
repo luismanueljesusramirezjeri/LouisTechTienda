@@ -28,11 +28,11 @@ public class DetalleVenta {
     @Column(name = "subtotal", nullable = false)
     private Double subtotal;
 
-    // 🔹 Constructor vacío
+    // Constructor vacío
     public DetalleVenta() {
     }
 
-    // 🔹 Constructor con parámetros
+    // Constructor con parámetros
     public DetalleVenta(Venta venta, Producto producto, Integer cantidad, Double precioUnitario) {
         this.venta = venta;
         this.producto = producto;
@@ -41,7 +41,7 @@ public class DetalleVenta {
         this.subtotal = cantidad * precioUnitario;
     }
 
-    // 🔹 Getters y Setters
+    // Getters y Setters
     public Long getIdDetalle() {
         return idDetalle;
     }

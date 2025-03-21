@@ -18,9 +18,9 @@ public class UsuarioService {
     // Obtener todos los usuarios
     public List<Usuario> obtenerTodos() {
         List<Usuario> usuarios = usuarioRepository.findAll();
-        System.out.println("Usuarios obtenidos: " + usuarios.size()); // 🔹 DEBUG
+        System.out.println("Usuarios obtenidos: " + usuarios.size()); // DEBUG
         for (Usuario u : usuarios) {
-            System.out.println(u.getNombre() + " - " + u.getEmail()); // 🔹 Muestra cada usuario
+            System.out.println(u.getNombre() + " - " + u.getEmail()); // Muestra cada usuario
         }
         return usuarios;
     }

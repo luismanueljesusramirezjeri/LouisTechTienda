@@ -17,7 +17,7 @@ public class ClienteService {
     // Obtener todos los clientes
     public List<Cliente> obtenerTodosLosClientes() {
         List<Cliente> clientes = clienteRepository.findAll();
-        System.out.println("Clientes obtenidos: " + clientes.size()); // 🔹 DEBUG
+        System.out.println("Clientes obtenidos: " + clientes.size()); //DEBUG
         return clientes;
     }
 

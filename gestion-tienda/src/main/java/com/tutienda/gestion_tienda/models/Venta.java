@@ -30,11 +30,11 @@ public class Venta {
     @Column(name = "total", nullable = false)
     private Double total;
 
-    // 🔹 Constructor vacío
+    // Constructor vacío
     public Venta() {
     }
 
-    // 🔹 Constructor con parámetros
+    // Constructor con parámetros
     public Venta(Usuario cliente, Usuario usuario, MetodoPago metodoPago, LocalDateTime fecha, Double total) {
         this.cliente = cliente;
         this.usuario = usuario;
@@ -43,7 +43,7 @@ public class Venta {
         this.total = total;
     }
 
-    // 🔹 Getters y Setters
+    // Getters y Setters
     public Long getIdVenta() {
         return idVenta;
     }

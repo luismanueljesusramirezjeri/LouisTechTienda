@@ -20,18 +20,18 @@ public class Cliente {
     @Column(name = "telefono", nullable = false)
     private String telefono;
 
-    // 🔹 Constructor vacío (necesario para JPA)
+    // Constructor vacío (necesario para JPA)
     public Cliente() {
     }
 
-    // 🔹 Constructor con parámetros
+    // Constructor con parámetros
     public Cliente(String nombre, String email, String telefono) {
         this.nombre = nombre;
         this.email = email;
         this.telefono = telefono;
     }
 
-    // 🔹 Getters y Setters
+    // Getters y Setters
     public Long getIdCliente() {
         return idCliente;
     }

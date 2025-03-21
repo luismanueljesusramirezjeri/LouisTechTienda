@@ -24,11 +24,11 @@ public class Inventario {
     @Column(name = "ubicacion", nullable = false)
     private String ubicacion;
 
-    // 🔹 Constructor vacío
+    // Constructor vacío
     public Inventario() {
     }
 
-    // 🔹 Constructor con parámetros
+    // Constructor con parámetros
     public Inventario(Producto producto, Integer stockActual, Integer stockMinimo, String ubicacion) {
         this.producto = producto;
         this.stockActual = stockActual;
@@ -36,7 +36,7 @@ public class Inventario {
         this.ubicacion = ubicacion;
     }
 
-    // 🔹 Getters y Setters
+    // Getters y Setters
     public Long getIdInventario() {
         return idInventario;
     }

@@ -26,11 +26,11 @@ public class Usuario {
     @Column(name = "telefono", nullable = false)
     private String telefono;
 
-    // 🔹 Constructor vacío requerido por JPA
+    // Constructor vacío requerido por JPA
     public Usuario() {
     }
 
-    // 🔹 Constructor con parámetros
+    // Constructor con parámetros
     public Usuario(Long idUsuario, String contraseña, String email, String nombre, String rol, String telefono) {
         this.idUsuario = idUsuario;
         this.contraseña = contraseña;
@@ -40,7 +40,7 @@ public class Usuario {
         this.telefono = telefono;
     }
 
-    // 🔹 Getters y Setters
+    // Getters y Setters
 
     public Long getIdUsuario() {
         return idUsuario;

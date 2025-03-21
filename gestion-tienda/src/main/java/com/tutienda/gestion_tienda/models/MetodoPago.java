@@ -14,16 +14,16 @@ public class MetodoPago {
     @Column(name = "tipo_pago", nullable = false, unique = true)
     private String tipoPago;
 
-    // 🔹 Constructor vacío (obligatorio para JPA)
+    // Constructor vacío (obligatorio para JPA)
     public MetodoPago() {
     }
 
-    // 🔹 Constructor con parámetros
+    // Constructor con parámetros
     public MetodoPago(String tipoPago) {
         this.tipoPago = tipoPago;
     }
 
-    // 🔹 Getters y Setters
+    // Getters y Setters
     public Long getIdPago() {
         return idPago;
     }

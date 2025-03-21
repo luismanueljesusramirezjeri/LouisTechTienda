@@ -23,11 +23,11 @@ public class Proveedor {
     @Column(name = "email", nullable = false, unique = true)
     private String email;
 
-    // 🔹 Constructor vacío (necesario para JPA)
+    // Constructor vacío (necesario para JPA)
     public Proveedor() {
     }
 
-    // 🔹 Constructor con parámetros
+    // Constructor con parámetros
     public Proveedor(String nombre, String contacto, String telefono, String email) {
         this.nombre = nombre;
         this.contacto = contacto;
@@ -35,7 +35,7 @@ public class Proveedor {
         this.email = email;
     }
 
-    // 🔹 Getters y Setters
+    // getters y Setters
     public Long getIdProveedor() {
         return idProveedor;
     }

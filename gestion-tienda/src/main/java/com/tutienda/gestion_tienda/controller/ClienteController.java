@@ -19,28 +19,28 @@ public class ClienteController {
     @GetMapping
     public ResponseEntity<List<Cliente>> obtenerClientes() {
         List<Cliente> clientes = clienteService.obtenerTodosLosClientes();
-        System.out.println("Lista de clientes obtenida"); // 🔹 DEBUG
+        System.out.println("Lista de clientes obtenida");
         return ResponseEntity.ok(clientes);
     }
 
     // Obtener cliente por ID
     @GetMapping("/{id}")
     public ResponseEntity<Cliente> obtenerClientePorId(@PathVariable Long id) {
-        System.out.println("Buscando cliente con ID: " + id); // 🔹 DEBUG
+        System.out.println("Buscando cliente con ID: " + id);
         return ResponseEntity.ok(clienteService.obtenerClientePorId(id));
     }
 
     // Crear un nuevo cliente
     @PostMapping
     public ResponseEntity<Cliente> crearCliente(@RequestBody Cliente cliente) {
-        System.out.println("Creando cliente: " + cliente.getNombre()); // 🔹 DEBUG
+        System.out.println("Creando cliente: " + cliente.getNombre());
         return ResponseEntity.ok(clienteService.guardarCliente(cliente));
     }
 
     // Eliminar cliente
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> eliminarCliente(@PathVariable Long id) {
-        System.out.println("Eliminando cliente con ID: " + id); // 🔹 DEBUG
+        System.out.println("Eliminando cliente con ID: " + id);
         clienteService.eliminarCliente(id);
         return ResponseEntity.noContent().build();
     }

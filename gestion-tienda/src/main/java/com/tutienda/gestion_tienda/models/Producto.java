@@ -29,11 +29,11 @@ public class Producto {
     @Column(name = "fecha_caducidad")
     private String fechaCaducidad;
 
-    // 🔹 Constructor vacío (obligatorio para JPA)
+    // Constructor vacío (obligatorio para JPA)
     public Producto() {
     }
 
-    // 🔹 Constructor con parámetros
+    // Constructor con parámetros
     public Producto(String nombre, String descripcion, String categoria, Double precio, Integer stock, String fechaCaducidad) {
         this.nombre = nombre;
         this.descripcion = descripcion;
@@ -43,7 +43,7 @@ public class Producto {
         this.fechaCaducidad = fechaCaducidad;
     }
 
-    // 🔹 Getters y Setters
+    // Getters y Setters
     public Long getIdProducto() {
         return idProducto;
     }

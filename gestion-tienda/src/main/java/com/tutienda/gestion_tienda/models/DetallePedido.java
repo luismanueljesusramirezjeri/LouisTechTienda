@@ -25,11 +25,11 @@ public class DetallePedido {
     @Column(name = "precio_unitario", nullable = false)
     private Double precioUnitario;
 
-    // 🔹 Constructor vacío
+    // Constructor vacío
     public DetallePedido() {
     }
 
-    // 🔹 Constructor con parámetros
+    // Constructor con parámetros
     public DetallePedido(Venta venta, Producto producto, Integer cantidad, Double precioUnitario) {
         this.venta = venta;
         this.producto = producto;
@@ -37,7 +37,7 @@ public class DetallePedido {
         this.precioUnitario = precioUnitario;
     }
 
-    // 🔹 Getters y Setters
+    // Getters y Setters
     public Long getIdDetalle() {
         return idDetalle;
     }
