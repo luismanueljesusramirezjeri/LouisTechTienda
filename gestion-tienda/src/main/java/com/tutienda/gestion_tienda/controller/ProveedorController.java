@@ -23,10 +23,11 @@ public class ProveedorController {
     }
 
     // Obtener un proveedor por ID
+    // Obtener un proveedor por ID
     @GetMapping("/{id}")
     public ResponseEntity<Proveedor> obtenerProveedorPorId(@PathVariable Long id) {
-        Optional<Proveedor> proveedor = proveedorService.obtenerProveedorPorId(id);
-        return proveedor.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
+        Proveedor proveedor = proveedorService.obtenerProveedorPorId(id);
+        return ResponseEntity.ok(proveedor);
     }
 
     // Crear un nuevo proveedor

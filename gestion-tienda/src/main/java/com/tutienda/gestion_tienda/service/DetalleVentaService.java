@@ -1,5 +1,6 @@
 package com.tutienda.gestion_tienda.service;
 
+import com.tutienda.gestion_tienda.exception.ResourceNotFoundException;
 import com.tutienda.gestion_tienda.models.DetalleVenta;
 import com.tutienda.gestion_tienda.models.Venta;
 import com.tutienda.gestion_tienda.models.Producto;
@@ -30,8 +31,10 @@ public class DetalleVentaService {
     }
 
     // Obtener un detalle de venta por ID
-    public Optional<DetalleVenta> obtenerPorId(Long id) {
-        return detalleVentaRepository.findById(id);
+    // Obtener un detalle de venta por ID con validación
+    public DetalleVenta obtenerPorId(Long id) {
+        return detalleVentaRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Detalle de venta con ID " + id + " no encontrado"));
     }
 
     // Obtener detalles de una venta específica
@@ -56,7 +59,11 @@ public class DetalleVentaService {
     }
 
     // Eliminar un detalle de venta
+    // Eliminar un detalle de venta con validación
     public void eliminarDetalle(Long id) {
+        if (!detalleVentaRepository.existsById(id)) {
+            throw new ResourceNotFoundException("Detalle de venta con ID " + id + " no encontrado");
+        }
         detalleVentaRepository.deleteById(id);
     }
 }

@@ -23,11 +23,13 @@ public class VentaController {
     }
 
     // Obtener una venta por ID
+// Obtener una venta por ID con manejo de excepciones
     @GetMapping("/{id}")
     public ResponseEntity<Venta> obtenerVentaPorId(@PathVariable Long id) {
-        Optional<Venta> venta = ventaService.obtenerVentaPorId(id);
-        return venta.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
+        System.out.println("Buscando venta con ID: " + id);
+        return ResponseEntity.ok(ventaService.obtenerVentaPorId(id));
     }
+
 
     // Crear una nueva venta
     @PostMapping

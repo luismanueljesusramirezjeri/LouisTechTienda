@@ -23,11 +23,13 @@ public class PromocionController {
     }
 
     // Obtener una promoción por ID
+    // Obtener una promoción por ID
     @GetMapping("/{id}")
     public ResponseEntity<Promocion> obtenerPromocion(@PathVariable Long id) {
-        Optional<Promocion> promocion = promocionService.obtenerPorId(id);
-        return promocion.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
+        Promocion promocion = promocionService.obtenerPorId(id);
+        return ResponseEntity.ok(promocion);
     }
+
 
     // Guardar una nueva promoción
     @PostMapping

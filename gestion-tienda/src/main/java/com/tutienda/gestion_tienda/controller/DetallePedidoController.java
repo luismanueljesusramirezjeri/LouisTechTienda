@@ -23,10 +23,11 @@ public class DetallePedidoController {
     }
 
     // Obtener un detalle de pedido por ID
+    // Obtener detalle de pedido por ID
     @GetMapping("/{id}")
     public ResponseEntity<DetallePedido> obtenerDetallePedido(@PathVariable Long id) {
-        Optional<DetallePedido> detalle = detallePedidoService.obtenerPorId(id);
-        return detalle.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
+        System.out.println("Buscando detalle de pedido con ID: " + id);
+        return ResponseEntity.ok(detallePedidoService.obtenerPorId(id));
     }
 
     // Guardar un nuevo detalle de pedido

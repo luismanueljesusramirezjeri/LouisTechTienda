@@ -1,5 +1,6 @@
 package com.tutienda.gestion_tienda.service;
 
+import com.tutienda.gestion_tienda.exception.ResourceNotFoundException;
 import com.tutienda.gestion_tienda.models.MetodoPago;
 import com.tutienda.gestion_tienda.repository.MetodoPagoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,17 +21,22 @@ public class MetodoPagoService {
     }
 
     // Obtener un método de pago por ID
-    public Optional<MetodoPago> obtenerMetodoPagoPorId(Long id) {
-        return metodoPagoRepository.findById(id);
+    // Obtener un método de pago por ID con validación
+    public MetodoPago obtenerMetodoPagoPorId(Long id) {
+        return metodoPagoRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Método de pago con ID " + id + " no encontrado"));
     }
-
     // Guardar un nuevo método de pago
     public MetodoPago guardarMetodoPago(MetodoPago metodoPago) {
         return metodoPagoRepository.save(metodoPago);
     }
 
     // Eliminar un método de pago
+    // Eliminar un método de pago con validación
     public void eliminarMetodoPago(Long id) {
+        if (!metodoPagoRepository.existsById(id)) {
+            throw new ResourceNotFoundException("Método de pago con ID " + id + " no encontrado");
+        }
         metodoPagoRepository.deleteById(id);
     }
 }

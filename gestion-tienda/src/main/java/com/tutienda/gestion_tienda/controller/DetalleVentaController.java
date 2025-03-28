@@ -23,11 +23,13 @@ public class DetalleVentaController {
     }
 
     // Obtener detalle de venta por ID
+    // Obtener detalle de venta por ID
     @GetMapping("/{id}")
     public ResponseEntity<DetalleVenta> obtenerDetalle(@PathVariable Long id) {
-        Optional<DetalleVenta> detalle = detalleVentaService.obtenerPorId(id);
-        return detalle.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
+        DetalleVenta detalleVenta = detalleVentaService.obtenerPorId(id);
+        return ResponseEntity.ok(detalleVenta);
     }
+
 
     // Obtener detalles por venta
     @GetMapping("/venta/{idVenta}")

@@ -23,11 +23,13 @@ public class MetodoPagoController {
     }
 
     // Obtener un método de pago por ID
+    // Obtener un método de pago por ID
     @GetMapping("/{id}")
     public ResponseEntity<MetodoPago> obtenerMetodoPagoPorId(@PathVariable Long id) {
-        Optional<MetodoPago> metodoPago = metodoPagoService.obtenerMetodoPagoPorId(id);
-        return metodoPago.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
+        MetodoPago metodoPago = metodoPagoService.obtenerMetodoPagoPorId(id);
+        return ResponseEntity.ok(metodoPago);
     }
+
 
     // Crear un nuevo método de pago
     @PostMapping

@@ -23,11 +23,13 @@ public class InventarioController {
     }
 
     // Obtener inventario por ID
+    // Obtener inventario por ID
     @GetMapping("/{id}")
     public ResponseEntity<Inventario> obtenerInventarioPorId(@PathVariable Long id) {
-        Optional<Inventario> inventario = inventarioService.obtenerInventarioPorId(id);
-        return inventario.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
+        Inventario inventario = inventarioService.obtenerInventarioPorId(id);
+        return ResponseEntity.ok(inventario);
     }
+
 
     // Crear un nuevo registro en el inventario
     @PostMapping
