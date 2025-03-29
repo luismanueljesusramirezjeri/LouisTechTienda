@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/usuarios")
@@ -43,5 +44,23 @@ public class UsuarioController {
         System.out.println("Eliminando usuario con ID: " + id);
         usuarioService.eliminarUsuario(id);
         return ResponseEntity.noContent().build();
+    }
+
+
+
+    // PUT - Reemplazar todo el usuario
+    @PutMapping("/{id}")
+    public ResponseEntity<Usuario> actualizarUsuario(
+            @PathVariable Long id,
+            @RequestBody Usuario usuario) {
+        return ResponseEntity.ok(usuarioService.actualizarUsuario(id, usuario));
+    }
+
+    // PATCH - Actualización parcial
+    @PatchMapping("/{id}")
+    public ResponseEntity<Usuario> actualizarParcialmente(
+            @PathVariable Long id,
+            @RequestBody Map<String, Object> updates) {
+        return ResponseEntity.ok(usuarioService.actualizarParcialmente(id, updates));
     }
 }

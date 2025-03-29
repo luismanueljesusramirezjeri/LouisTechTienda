@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Service
@@ -43,4 +44,39 @@ public class UsuarioService {
         }
         usuarioRepository.deleteById(id);
     }
+
+
+    // PUT - Reemplazar todos los datos de un usuario
+    public Usuario actualizarUsuario(Long id, Usuario nuevoUsuario) {
+        Usuario usuarioExistente = usuarioRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Usuario con ID " + id + " no encontrado"));
+
+        usuarioExistente.setNombre(nuevoUsuario.getNombre());
+        usuarioExistente.setEmail(nuevoUsuario.getEmail());
+        usuarioExistente.setTelefono(nuevoUsuario.getTelefono());
+        usuarioExistente.setContraseña(nuevoUsuario.getContraseña());
+        usuarioExistente.setRol(nuevoUsuario.getRol());
+
+        return usuarioRepository.save(usuarioExistente);
+    }
+
+    // PATCH - Actualizar parcialmente usando un Map<String, Object>
+    public Usuario actualizarParcialmente(Long id, Map<String, Object> updates) {
+        Usuario usuario = usuarioRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Usuario con ID " + id + " no encontrado"));
+
+        updates.forEach((campo, valor) -> {
+            switch (campo) {
+                case "nombre" -> usuario.setNombre((String) valor);
+                case "email" -> usuario.setEmail((String) valor);
+                case "telefono" -> usuario.setTelefono((String) valor);
+                case "contraseña" -> usuario.setContraseña((String) valor);
+                case "rol" -> usuario.setRol((String) valor);
+            }
+        });
+
+        return usuarioRepository.save(usuario);
+    }
+
+
 }

@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/productos")
@@ -38,5 +39,22 @@ public class ProductoController {
     public ResponseEntity<Void> eliminarProducto(@PathVariable Long id) {
         productoService.eliminarProducto(id);
         return ResponseEntity.noContent().build();
+    }
+
+
+    // PUT - Reemplazar todo el producto
+    @PutMapping("/{id}")
+    public ResponseEntity<Producto> actualizarProducto(
+            @PathVariable Long id,
+            @RequestBody Producto producto) {
+        return ResponseEntity.ok(productoService.actualizarProducto(id, producto));
+    }
+
+    // PATCH - Actualización parcial
+    @PatchMapping("/{id}")
+    public ResponseEntity<Producto> actualizarParcialmente(
+            @PathVariable Long id,
+            @RequestBody Map<String, Object> updates) {
+        return ResponseEntity.ok(productoService.actualizarParcialmenteProducto(id, updates));
     }
 }

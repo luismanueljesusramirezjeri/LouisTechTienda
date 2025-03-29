@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @RestController
@@ -42,5 +43,22 @@ public class MetodoPagoController {
     public ResponseEntity<Void> eliminarMetodoPago(@PathVariable Long id) {
         metodoPagoService.eliminarMetodoPago(id);
         return ResponseEntity.noContent().build();
+    }
+
+
+    // PUT - Reemplazar todos los datos de un método de pago
+    @PutMapping("/{id}")
+    public ResponseEntity<MetodoPago> actualizarMetodoPago(
+            @PathVariable Long id,
+            @RequestBody MetodoPago metodoPago) {
+        return ResponseEntity.ok(metodoPagoService.actualizarMetodoPago(id, metodoPago));
+    }
+
+    // PATCH - Actualización parcial de un método de pago
+    @PatchMapping("/{id}")
+    public ResponseEntity<MetodoPago> actualizarParcialmenteMetodoPago(
+            @PathVariable Long id,
+            @RequestBody Map<String, Object> updates) {
+        return ResponseEntity.ok(metodoPagoService.actualizarParcialmenteMetodoPago(id, updates));
     }
 }

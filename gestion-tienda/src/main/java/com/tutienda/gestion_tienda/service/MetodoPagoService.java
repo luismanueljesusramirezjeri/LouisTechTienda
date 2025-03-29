@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Service
@@ -38,5 +39,32 @@ public class MetodoPagoService {
             throw new ResourceNotFoundException("Método de pago con ID " + id + " no encontrado");
         }
         metodoPagoRepository.deleteById(id);
+    }
+
+
+
+
+    // PUT - Reemplazar completamente un método de pago
+    public MetodoPago actualizarMetodoPago(Long id, MetodoPago nuevoMetodoPago) {
+        MetodoPago metodoExistente = metodoPagoRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Método de pago con ID " + id + " no encontrado"));
+
+        metodoExistente.setTipoPago(nuevoMetodoPago.getTipoPago());
+
+        return metodoPagoRepository.save(metodoExistente);
+    }
+
+    // PATCH - Actualizar parcialmente un método de pago
+    public MetodoPago actualizarParcialmenteMetodoPago(Long id, Map<String, Object> updates) {
+        MetodoPago metodoPago = metodoPagoRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Método de pago con ID " + id + " no encontrado"));
+
+        updates.forEach((campo, valor) -> {
+            if ("tipoPago".equals(campo)) {
+                metodoPago.setTipoPago((String) valor);
+            }
+        });
+
+        return metodoPagoRepository.save(metodoPago);
     }
 }

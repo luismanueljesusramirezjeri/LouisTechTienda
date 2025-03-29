@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Service
@@ -38,5 +39,37 @@ public class ProveedorService {
             throw new ResourceNotFoundException("Proveedor con ID " + id + " no encontrado");
         }
         proveedorRepository.deleteById(id);
+    }
+
+
+    // PUT - Actualizar completamente un proveedor
+    public Proveedor actualizarProveedor(Long id, Proveedor nuevoProveedor) {
+        Proveedor proveedorExistente = proveedorRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Proveedor con ID " + id + " no encontrado"));
+
+        // Se reemplazan todos los datos
+        proveedorExistente.setNombre(nuevoProveedor.getNombre());
+        proveedorExistente.setEmail(nuevoProveedor.getEmail());
+        proveedorExistente.setTelefono(nuevoProveedor.getTelefono());
+        proveedorExistente.setContacto(nuevoProveedor.getContacto());
+
+        return proveedorRepository.save(proveedorExistente);
+    }
+
+    // PATCH - Actualizar parcialmente un proveedor
+    public Proveedor actualizarParcialmenteProveedor(Long id, Map<String, Object> updates) {
+        Proveedor proveedor = proveedorRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Proveedor con ID " + id + " no encontrado"));
+
+        updates.forEach((campo, valor) -> {
+            switch (campo) {
+                case "nombre" -> proveedor.setNombre((String) valor);
+                case "email" -> proveedor.setEmail((String) valor);
+                case "telefono" -> proveedor.setTelefono((String) valor);
+                case "contacto" -> proveedor.setContacto((String) valor);
+            }
+        });
+
+        return proveedorRepository.save(proveedor);
     }
 }
