@@ -1,6 +1,8 @@
 package com.tutienda.gestion_tienda.controller;
 
 import com.tutienda.gestion_tienda.models.Producto;
+import com.tutienda.gestion_tienda.repository.projection.ResumenProductoProjection;
+import com.tutienda.gestion_tienda.repository.projection.ResumenUsuarioProjection;
 import com.tutienda.gestion_tienda.service.ProductoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -57,4 +59,20 @@ public class ProductoController {
             @RequestBody Map<String, Object> updates) {
         return ResponseEntity.ok(productoService.actualizarParcialmenteProducto(id, updates));
     }
+
+
+
+
+
+    //obtener productos por nombre utilizando la inferzas de proyeccion ResumenProductoProjection
+    @GetMapping("/nombre/{nombre}")
+    public ResponseEntity<List<ResumenProductoProjection>>obtenerProductosPorNombre(@PathVariable String nombre){
+        System.out.println("Buscar productos por nombre" + nombre);
+        List<ResumenProductoProjection> productos = productoService.obtenerProductosPorNombreProyectado(nombre);
+        return ResponseEntity.ok(productos);
+    }
+
+
+
+
 }

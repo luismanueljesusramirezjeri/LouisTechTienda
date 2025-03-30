@@ -1,11 +1,13 @@
 package com.tutienda.gestion_tienda.controller;
 
 import com.tutienda.gestion_tienda.models.Usuario;
+import com.tutienda.gestion_tienda.repository.projection.ResumenUsuarioProjection;
 import com.tutienda.gestion_tienda.service.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.lang.model.SourceVersion;
 import java.util.List;
 import java.util.Map;
 
@@ -62,5 +64,14 @@ public class UsuarioController {
             @PathVariable Long id,
             @RequestBody Map<String, Object> updates) {
         return ResponseEntity.ok(usuarioService.actualizarParcialmente(id, updates));
+    }
+
+
+    // Obtener usuarios por nombre utilizando la interfaz de proyección ResumenClienteProjection
+    @GetMapping("/nombre/{nombre}")
+    public ResponseEntity<List<ResumenUsuarioProjection>>obtenerClientesPorUsuario(@PathVariable String nombre) {
+        System.out.println("Buscar cliente por usuario" + nombre);
+        List<ResumenUsuarioProjection> usuarios = usuarioService.obtenerUsuariosPorNombreProyectado(nombre);
+        return ResponseEntity.ok(usuarios);
     }
 }

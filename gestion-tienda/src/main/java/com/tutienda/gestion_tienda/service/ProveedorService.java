@@ -3,6 +3,8 @@ package com.tutienda.gestion_tienda.service;
 import com.tutienda.gestion_tienda.exception.ResourceNotFoundException;
 import com.tutienda.gestion_tienda.models.Proveedor;
 import com.tutienda.gestion_tienda.repository.ProveedorRepository;
+import com.tutienda.gestion_tienda.repository.projection.ResumenProductoProjection;
+import com.tutienda.gestion_tienda.repository.projection.ResumenProveedorProjection;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -72,4 +74,14 @@ public class ProveedorService {
 
         return proveedorRepository.save(proveedor);
     }
+
+
+
+
+
+    // obtener datosw de proveedor por nombre
+    public List<ResumenProveedorProjection>obtenerProveedorPorNombreProyectado(String proveedor){
+        return proveedorRepository.obtenerProveedorPorNombreProyectado(proveedor);
+    }
+
 }

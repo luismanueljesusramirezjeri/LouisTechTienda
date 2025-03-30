@@ -3,6 +3,7 @@ package com.tutienda.gestion_tienda.service;
 import com.tutienda.gestion_tienda.exception.ResourceNotFoundException;
 import com.tutienda.gestion_tienda.models.Usuario;
 import com.tutienda.gestion_tienda.repository.UsuarioRepository;
+import com.tutienda.gestion_tienda.repository.projection.ResumenUsuarioProjection;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -76,6 +77,15 @@ public class UsuarioService {
         });
 
         return usuarioRepository.save(usuario);
+    }
+
+
+
+
+
+    // Obtener clientes por nombre utilizando la interfaz de proyección ResumenClienteProjection
+    public List<ResumenUsuarioProjection>obtenerUsuariosPorNombreProyectado(String usuario){
+        return usuarioRepository.obtenerUsuariosPorNombreProyectado(usuario);
     }
 
 
