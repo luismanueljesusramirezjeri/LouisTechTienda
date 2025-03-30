@@ -7,6 +7,8 @@ import com.tutienda.gestion_tienda.models.Producto;
 import com.tutienda.gestion_tienda.repository.DetalleVentaRepository;
 import com.tutienda.gestion_tienda.repository.VentaRepository;
 import com.tutienda.gestion_tienda.repository.ProductoRepository;
+import com.tutienda.gestion_tienda.repository.projection.ResumenDetalleVentaProjection;
+import com.tutienda.gestion_tienda.repository.projection.ResumenInventarioProjection;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -66,4 +68,13 @@ public class DetalleVentaService {
         }
         detalleVentaRepository.deleteById(id);
     }
+
+
+
+
+    //obtener  detalle de venta  por nombre del producto
+    public List<ResumenDetalleVentaProjection>obtenerDetalleVentaPorNombreDelProducto(String nombre){
+        return detalleVentaRepository.obtenerDetalleVentaPorNombreDelProducto(nombre);
+    }
+
 }

@@ -3,6 +3,8 @@ package com.tutienda.gestion_tienda.service;
 import com.tutienda.gestion_tienda.exception.ResourceNotFoundException;
 import com.tutienda.gestion_tienda.models.Inventario;
 import com.tutienda.gestion_tienda.repository.InventarioRepository;
+import com.tutienda.gestion_tienda.repository.projection.ResumenInventarioProjection;
+import com.tutienda.gestion_tienda.repository.projection.ResumenProveedorProjection;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -26,6 +28,7 @@ public class InventarioService {
         return inventarioRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Inventario con ID " + id + " no encontrado"));
     }
+
     // Guardar un nuevo registro de inventario
     public Inventario guardarInventario(Inventario inventario) {
         return inventarioRepository.save(inventario);
@@ -39,4 +42,11 @@ public class InventarioService {
         }
         inventarioRepository.deleteById(id);
     }
+
+
+    // Obten  datos de inventario por nombre
+    public List<ResumenInventarioProjection>obtenerInventarioPorNombreProducto(String nombre){
+        return inventarioRepository.obtenerInventarioPorNombreProducto(nombre);
+    }
+
 }

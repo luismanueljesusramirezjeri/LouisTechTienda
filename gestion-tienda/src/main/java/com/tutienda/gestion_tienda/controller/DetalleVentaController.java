@@ -1,6 +1,8 @@
 package com.tutienda.gestion_tienda.controller;
 
 import com.tutienda.gestion_tienda.models.DetalleVenta;
+import com.tutienda.gestion_tienda.repository.projection.ResumenDetalleVentaProjection;
+import com.tutienda.gestion_tienda.repository.projection.ResumenInventarioProjection;
 import com.tutienda.gestion_tienda.service.DetalleVentaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -52,4 +54,16 @@ public class DetalleVentaController {
         detalleVentaService.eliminarDetalle(id);
         return ResponseEntity.noContent().build();
     }
+
+
+
+
+    //Obtener detalle de venta por nombre del producto
+    @GetMapping("/nombre/{nombre}")
+    public ResponseEntity<List<ResumenDetalleVentaProjection>>obtenerDetalleVentaPorNombreDelProducto(@PathVariable String nombre){
+        System.out.println("Buscar detalle de venta por nombre del producto" + nombre);
+        List<ResumenDetalleVentaProjection> detalleVenta = detalleVentaService.obtenerDetalleVentaPorNombreDelProducto(nombre);
+        return ResponseEntity.ok(detalleVenta);
+    }
+
 }

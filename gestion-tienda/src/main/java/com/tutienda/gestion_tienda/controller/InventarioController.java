@@ -1,6 +1,9 @@
 package com.tutienda.gestion_tienda.controller;
 
 import com.tutienda.gestion_tienda.models.Inventario;
+
+
+import com.tutienda.gestion_tienda.repository.projection.ResumenInventarioProjection;
 import com.tutienda.gestion_tienda.service.InventarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -43,4 +46,21 @@ public class InventarioController {
         inventarioService.eliminarInventario(id);
         return ResponseEntity.noContent().build();
     }
+
+
+
+    //obetener iventario por nombre del producto
+    @GetMapping("/nombre/{nombre}")
+    public ResponseEntity<List<ResumenInventarioProjection>> obtenerInventarioPorNombreDeProducto(@PathVariable String nombre) {
+        System.out.println("Buscar datos del Inventario por nombre del producto: " + nombre);
+
+        List<ResumenInventarioProjection> inventario = inventarioService.obtenerInventarioPorNombreProducto(nombre);
+
+        return ResponseEntity.ok(inventario);
+    }
+
+
+
+
+
 }
