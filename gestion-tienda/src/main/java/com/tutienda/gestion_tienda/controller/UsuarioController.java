@@ -1,5 +1,6 @@
 package com.tutienda.gestion_tienda.controller;
 
+import com.tutienda.gestion_tienda.models.Producto;
 import com.tutienda.gestion_tienda.models.Usuario;
 import com.tutienda.gestion_tienda.repository.projection.ResumenUsuarioProjection;
 import com.tutienda.gestion_tienda.service.UsuarioService;
@@ -74,4 +75,22 @@ public class UsuarioController {
         List<ResumenUsuarioProjection> usuarios = usuarioService.obtenerUsuariosPorNombreProyectado(nombre);
         return ResponseEntity.ok(usuarios);
     }
+
+
+
+    //Actualizar datos nativo
+    @PutMapping("/actualizar/{id}")
+    public ResponseEntity<String> actualizarDatosPorId(
+            @PathVariable("id") Long idUsuario,
+            @RequestBody Usuario usuario) { // recibe json
+        usuarioService.actualizarUsuario(
+                idUsuario,
+                usuario.getNombre(),
+                usuario.getTelefono(),
+                usuario.getEmail()
+        );
+        return ResponseEntity.ok("Datos actualizados con éxito");
+    }
+
+
 }

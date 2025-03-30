@@ -4,6 +4,8 @@ import com.tutienda.gestion_tienda.exception.ResourceNotFoundException;
 import com.tutienda.gestion_tienda.models.Usuario;
 import com.tutienda.gestion_tienda.repository.UsuarioRepository;
 import com.tutienda.gestion_tienda.repository.projection.ResumenUsuarioProjection;
+import jakarta.persistence.EntityNotFoundException;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -87,6 +89,18 @@ public class UsuarioService {
     public List<ResumenUsuarioProjection>obtenerUsuariosPorNombreProyectado(String usuario){
         return usuarioRepository.obtenerUsuariosPorNombreProyectado(usuario);
     }
+
+    //Nativo JPA
+    @Transactional
+    public void actualizarUsuario(Long idUsurio ,String nombre ,String telefono ,String email){
+        //Verificar si el usuario Existe antes de modificar o actualziar ps
+        if(!usuarioRepository.existsById(idUsurio)){
+            throw new EntityNotFoundException("El usuario con ID " + idUsurio + " no existe.");
+        }
+        // Llama al metodo nativo
+        usuarioRepository.actualizarUsuario(nombre,telefono,email ,idUsurio);
+    }
+
 
 
 }

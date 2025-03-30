@@ -5,6 +5,8 @@ import com.tutienda.gestion_tienda.models.Proveedor;
 import com.tutienda.gestion_tienda.repository.ProveedorRepository;
 import com.tutienda.gestion_tienda.repository.projection.ResumenProductoProjection;
 import com.tutienda.gestion_tienda.repository.projection.ResumenProveedorProjection;
+import jakarta.persistence.EntityNotFoundException;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -83,5 +85,19 @@ public class ProveedorService {
     public List<ResumenProveedorProjection>obtenerProveedorPorNombreProyectado(String proveedor){
         return proveedorRepository.obtenerProveedorPorNombreProyectado(proveedor);
     }
+
+    //Nativo JPA
+    @Transactional
+    public void actualizarProveedor(Long idProveedor ,String contacto ,String telefono ,String email){
+        //verfiicar si existe el proveddor
+        if(!proveedorRepository.existsById(idProveedor)){
+            throw new ResourceNotFoundException("El proveedor con ID " + idProveedor + " no existe.");
+        }
+
+        //llamar al metod
+        proveedorRepository.actualizarDatosdelProveedor(contacto,telefono,email,idProveedor);
+    }
+
+
 
 }

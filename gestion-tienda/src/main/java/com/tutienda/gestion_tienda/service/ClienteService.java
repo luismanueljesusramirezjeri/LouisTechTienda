@@ -4,6 +4,7 @@ import com.tutienda.gestion_tienda.exception.ResourceNotFoundException;
 import com.tutienda.gestion_tienda.models.Cliente;
 import com.tutienda.gestion_tienda.repository.ClienteRepository;
 import com.tutienda.gestion_tienda.repository.projection.ResumenClienteProjection;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -81,5 +82,19 @@ public class ClienteService {
     public List<ResumenClienteProjection> obtenerClientesPorNombreProyectado(String nombre) {
         return clienteRepository.obtenerClientesPorNombreProyectado(nombre);
     }
+
+    //Nativo JPA
+    @Transactional
+    public void actualizarCliente(Long idCliente , String nombre , String telefono){
+        //verificar si existe cliente
+        if(!clienteRepository.existsById(idCliente)){
+            throw new ResourceNotFoundException("El clienbte con ID " +  idCliente + " no existe");
+        }
+
+        //llamar al metodo
+        clienteRepository.actualizarDatosDelCliente(nombre,telefono,idCliente);
+    }
+
+
 
 }

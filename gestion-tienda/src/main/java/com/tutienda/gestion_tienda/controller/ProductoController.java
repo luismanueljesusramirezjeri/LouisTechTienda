@@ -73,6 +73,22 @@ public class ProductoController {
     }
 
 
+    //Actualiza el producto por ID
+    @PutMapping("/actualizar/{id}")
+    public ResponseEntity<String> actualzarProductoPorId(
+            @PathVariable("id") Long idProducto,
+            @RequestBody Producto producto) { // Recibe el objeto completo en JSON
+
+        productoService.actualizarProducto(
+                idProducto,
+                producto.getNombre(),
+                producto.getPrecio(),
+                producto.getStock()
+        );
+
+        return ResponseEntity.ok("Producto actualizado con éxito");
+    }
+
 
 
 }

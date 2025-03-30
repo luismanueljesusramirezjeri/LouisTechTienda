@@ -81,5 +81,20 @@ public class ClienteController {
         return ResponseEntity.ok(clientes);
     }
 
+    //Actualizar datos nativo cliente
+    @PutMapping("/actualizar/{id}")
+    public ResponseEntity<String> actualizarDatosClienteID(
+            @PathVariable("id")Long idCliente,
+            @RequestBody Cliente  cliente) {
+        clienteService.actualizarCliente(
+                idCliente,
+                cliente.getNombre(),
+                cliente.getTelefono()
+        );
+        return ResponseEntity.ok("Datos actualizados con exito");
+    }
+
+
+
 
 }

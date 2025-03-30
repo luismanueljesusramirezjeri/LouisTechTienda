@@ -1,11 +1,13 @@
 package com.tutienda.gestion_tienda.controller;
 
 import com.tutienda.gestion_tienda.models.Proveedor;
+import com.tutienda.gestion_tienda.models.Usuario;
 import com.tutienda.gestion_tienda.repository.projection.ResumenProductoProjection;
 import com.tutienda.gestion_tienda.repository.projection.ResumenProveedorProjection;
 import com.tutienda.gestion_tienda.service.ProveedorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -74,5 +76,18 @@ public class ProveedorController {
         return ResponseEntity.ok(proveeedor);
     }
 
+    //Actualiza datos  nativo
+    @PutMapping("/actualizar/{id}")
+    public ResponseEntity<String> actualizarDatosProveedorID(
+            @PathVariable("id") Long idProveedor,
+            @RequestBody Proveedor proveedor) {
+        proveedorService.actualizarProveedor(
+                idProveedor,
+                proveedor.getContacto(),
+                proveedor.getTelefono(),
+                proveedor.getEmail()
+        );
+        return ResponseEntity.ok("Datos actualizados con exitos");
+    }
 
 }

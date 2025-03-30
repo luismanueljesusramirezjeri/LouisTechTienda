@@ -4,7 +4,9 @@ import com.tutienda.gestion_tienda.exception.ResourceNotFoundException;
 import com.tutienda.gestion_tienda.models.Producto;
 import com.tutienda.gestion_tienda.repository.ProductoRepository;
 import com.tutienda.gestion_tienda.repository.projection.ResumenProductoProjection;
-import com.tutienda.gestion_tienda.repository.projection.ResumenUsuarioProjection;
+
+import jakarta.persistence.EntityNotFoundException;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -85,5 +87,20 @@ public class ProductoService {
     public List<ResumenProductoProjection>obtenerProductosPorNombreProyectado(String producto){
         return productoRepository.obtenerProductosPorNombreProyectado(producto);
     }
+
+
+
+    //Servicio Nativo JPA
+    @Transactional
+    public void actualizarProducto(Long idProducto, String nombre, Double precio, Integer stock) {
+        // Verificar si el producto existe antes de actualizar
+        if (!productoRepository.existsById(idProducto)) {
+            throw new EntityNotFoundException("El producto con ID " + idProducto + " no existe.");
+        }
+
+        // Llamar al método de actualización nativa
+        productoRepository.actualizarPrecioStockProducto(nombre, precio, stock, idProducto);
+    }
+
 
 }
